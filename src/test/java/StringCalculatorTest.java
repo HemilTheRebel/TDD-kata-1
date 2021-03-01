@@ -44,4 +44,19 @@ class StringCalculatorTest {
         assertEquals(StringCalculator.add("1,2,3,4"), 10);
         assertEquals(StringCalculator.add("1,2,3,4,5"), 15);
     }
+
+    @Test
+    void add_allows_newlines_as_separators() {
+        assertEquals(StringCalculator.add("1\n2,3"), 6);
+    }
+
+    @Test
+    void add_throws_illegal_argument_exception_when_string_ends_with_newline() {
+        assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("1,2,\n"));
+    }
+
+    @Test
+    void ensure_test_trims_input() {
+        assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("\t\n\n"));
+    }
 }

@@ -6,7 +6,10 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] ints = numbers.split(",");
+        numbers = numbers.trim();
+
+        final String delimiters = "[,\n]";
+        String[] ints = numbers.split(delimiters);
 
         if (ints.length < 2 || numbers.endsWith(",")) {
             throw new IllegalArgumentException();
