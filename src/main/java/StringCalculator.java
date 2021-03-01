@@ -1,6 +1,30 @@
 import java.util.Arrays;
 
 public class StringCalculator {
+    private static Delimiter parseDelimiters(String numbers) {
+        String delimiters = "[,\n]";
+
+        boolean hasCustomDelimiters = numbers.startsWith("//");
+        if (!hasCustomDelimiters) {
+            return new Delimiter(delimiters, numbers);
+        }
+
+        /// substring is to ignore the first "//"
+        int indexOfEndLine = numbers.indexOf('\n');
+        if (indexOfEndLine == -1) {
+            throw new IllegalArgumentException();
+        }
+
+        // note we found the index of \n. But we do not want \n in the delimiter.
+        // Hence, we used indexOfEndLine because that index is not included in substring
+        delimiters += "|" + numbers.substring("//".length(), indexOfEndLine);
+
+        // We want to continue from after the \n is over
+        String remainingString = numbers.substring(indexOfEndLine + 1);
+
+        return new Delimiter(delimiters, remainingString);
+    }
+
     public static int add(String numbers) {
         if (numbers.isEmpty()) {
             return 0;
@@ -8,25 +32,10 @@ public class StringCalculator {
 
         numbers = numbers.trim();
 
-        String delimiters = "[,\n]";
+        Delimiter delimiter = parseDelimiters(numbers);
+        numbers = delimiter.remainingString;
 
-        boolean hasCustomDelimiters = numbers.startsWith("//");
-        if (hasCustomDelimiters) {
-            /// substring is to ignore the first "//"
-            int indexOfEndLine = numbers.indexOf('\n');
-            if (indexOfEndLine == -1) {
-                throw new IllegalArgumentException();
-            }
-
-            // note we found the index of \n. But we do not want \n in the delimiter.
-            // Hence, we used indexOfEndLine because that index is not included in substring
-            delimiters += "|" + numbers.substring(2, indexOfEndLine);
-
-            // We want to continue from after the string is over
-            numbers = numbers.substring(indexOfEndLine + 1);
-        }
-
-        String[] ints = numbers.split(delimiters);
+        String[] ints = numbers.split(delimiter.regexToSplit);
 
         if (ints.length < 2 || numbers.endsWith(",")) {
             throw new IllegalArgumentException();
