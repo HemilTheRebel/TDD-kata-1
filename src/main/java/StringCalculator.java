@@ -13,7 +13,9 @@ public class StringCalculator {
 
         /// substring is to ignore the first "//"
         int indexOfEndLine = numbers.indexOf('\n');
-        if (indexOfEndLine == -1) {
+        /// We are allowing only one character. So the string would be "//_\n".
+        // Hence index should be 3
+        if (indexOfEndLine != 3) {
             throw new IllegalArgumentException();
         }
 

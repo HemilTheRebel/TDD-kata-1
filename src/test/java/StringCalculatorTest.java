@@ -62,7 +62,6 @@ class StringCalculatorTest {
 
     @Test
     void add_splits_using_custom_delimiters() {
-        assertEquals(StringCalculator.add("//abc\n1,2\n3,4abc5"), 15);
         assertEquals(StringCalculator.add("//;\n1;2"), 3);
     }
 
