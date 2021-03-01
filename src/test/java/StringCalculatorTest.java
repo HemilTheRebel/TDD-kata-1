@@ -70,4 +70,13 @@ class StringCalculatorTest {
     void add_throws_illegal_argument_exception_when_end_line_is_not_found_after_slash_slash() {
         assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("//abc"));
     }
+
+    @Test
+    void calling_add_with_negative_number_should_throw_NegativesNotAllowed_containing_negative_numbers() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("1,2,-3"));
+        assertEquals("Negatives not allowed. Negative numbers are: -3", exception.getMessage());
+
+        exception = assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("1,2,-3,-4"));
+        assertEquals("Negatives not allowed. Negative numbers are: -3 -4", exception.getMessage());
+    }
 }

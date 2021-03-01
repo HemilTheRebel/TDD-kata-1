@@ -1,4 +1,8 @@
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StringCalculator {
     private static Delimiter parseDelimiters(String numbers) {
@@ -41,9 +45,26 @@ public class StringCalculator {
             throw new IllegalArgumentException();
         }
 
-        // Separate variable is declared for readability. Ignore IntelliJ's big brains
-        // noinspection UnnecessaryLocalVariable
-        int sum = Arrays.stream(ints).mapToInt(e -> Integer.parseInt(e.trim())).sum();
-        return sum;
+
+        List<Integer> integerList = Arrays.stream(ints)
+                .map(e -> Integer.parseInt(e.trim()))
+                .collect(Collectors.toList());
+
+        List<Integer> negativeNumbers = integerList
+                .stream()
+                .filter(e -> e < 0)
+                .collect(Collectors.toList());
+
+        if (negativeNumbers.size() > 0) {
+            String spaceDelimitedNumbers = negativeNumbers.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(" "));
+
+            throw new IllegalArgumentException(
+                    "Negatives not allowed. Negative numbers are: " + spaceDelimitedNumbers
+            );
+        }
+
+        return integerList.stream().reduce(0, Integer::sum);
     }
 }
