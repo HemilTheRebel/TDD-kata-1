@@ -8,7 +8,7 @@ public class StringCalculator {
 
         String[] ints = numbers.split(",");
         if (ints.length < 2) {
-            throw new IllegalStateException();
+            throw new IllegalArgumentException();
         }
 
         int sum = Arrays.stream(ints).mapToInt(Integer::parseInt).sum();

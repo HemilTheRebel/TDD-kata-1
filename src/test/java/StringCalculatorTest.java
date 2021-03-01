@@ -25,7 +25,7 @@ class StringCalculatorTest {
 
     @Test
     void add_throws_illegal_argument_exception_if_string_contains_1_number_only() {
-        assertThrows(IllegalStateException.class, () -> StringCalculator.add("1"));
+        assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("1"));
     }
 
     @Test
