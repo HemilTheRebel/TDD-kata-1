@@ -59,4 +59,15 @@ class StringCalculatorTest {
     void ensure_test_trims_input() {
         assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("\t\n\n"));
     }
+
+    @Test
+    void add_splits_using_custom_delimiters() {
+        assertEquals(StringCalculator.add("//abc\n1,2\n3,4abc5"), 15);
+        assertEquals(StringCalculator.add("//;\n1;2"), 3);
+    }
+
+    @Test
+    void add_throws_illegal_argument_exception_when_end_line_is_not_found_after_slash_slash() {
+        assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("//abc"));
+    }
 }
