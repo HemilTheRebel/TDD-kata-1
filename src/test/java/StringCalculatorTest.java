@@ -29,7 +29,9 @@ class StringCalculatorTest {
     }
 
     @Test
-    void add_throws_illegal_argument_exception_if_string_contains_more_than_2_numbers() {
-        assertThrows(IllegalStateException.class, () -> { StringCalculator.add("1,2,3"); });
+    void add_sums_all_arguments_when_more_than_2_numbers_are_supplied() {
+        assertEquals(StringCalculator.add("1,2,3"), 6);
+        assertEquals(StringCalculator.add("1,2,3,4"), 10);
+        assertEquals(StringCalculator.add("1,2,3,4,5"), 15);
     }
 }
