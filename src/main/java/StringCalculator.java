@@ -1,8 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class StringCalculator {
     private static Delimiter parseDelimiters(String numbers) {
@@ -65,6 +63,8 @@ public class StringCalculator {
             );
         }
 
-        return integerList.stream().reduce(0, Integer::sum);
+        return integerList.stream().
+                filter(e -> e <= 1000)
+                .reduce(0, Integer::sum);
     }
 }

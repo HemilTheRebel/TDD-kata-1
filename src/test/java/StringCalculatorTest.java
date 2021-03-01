@@ -79,4 +79,9 @@ class StringCalculatorTest {
         exception = assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("1,2,-3,-4"));
         assertEquals("Negatives not allowed. Negative numbers are: -3 -4", exception.getMessage());
     }
+
+    @Test
+    void numbers_above_1000_should_not_be_counted() {
+        assertEquals(StringCalculator.add("1, 1001, 2, 4"), 7);
+    }
 }
