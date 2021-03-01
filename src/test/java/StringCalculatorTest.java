@@ -83,4 +83,17 @@ class StringCalculatorTest {
     void numbers_above_1000_should_not_be_counted() {
         assertEquals(StringCalculator.add("1, 1001, 2, 4"), 7);
     }
+
+    @Test
+    void delimiters_inside_square_brackets_can_be_of_any_length() {
+        assertEquals(StringCalculator.add("//[abc]\n1,2\n3,4abc5"), 15);
+        assertEquals(StringCalculator.add("//[abc][def]\n1def2\n3,4abc5"), 15);
+        assertEquals(StringCalculator.add("//[*][%]\n1*2%3"), 6);
+    }
+
+    @Test
+    void delimiters_without_left_square_bracket_throws_illegal_argument_exception() {
+        assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("//abc]\n1,2\n3,4abc5"));
+        assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("//[a][b]c]\n1,2\n3,4abc5"));
+    }
 }
