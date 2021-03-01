@@ -12,6 +12,8 @@ public class StringCalculator {
             throw new IllegalArgumentException();
         }
 
+        // Separate variable is declared for readability. Ignore IntelliJ's big brains
+        // noinspection UnnecessaryLocalVariable
         int sum = Arrays.stream(ints).mapToInt(e -> Integer.parseInt(e.trim())).sum();
         return sum;
     }
