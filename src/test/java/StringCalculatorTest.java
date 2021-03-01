@@ -29,6 +29,16 @@ class StringCalculatorTest {
     }
 
     @Test
+    void add_throws_illegal_argument_exception_if_string_ends_with_comma() {
+        assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("1,2,"));
+    }
+
+    @Test
+    void ensure_add_trims_each_number() {
+        assertEquals(StringCalculator.add("   1  , 2  ,  3   "), 6);
+    }
+
+    @Test
     void add_sums_all_arguments_when_more_than_2_numbers_are_supplied() {
         assertEquals(StringCalculator.add("1,2,3"), 6);
         assertEquals(StringCalculator.add("1,2,3,4"), 10);

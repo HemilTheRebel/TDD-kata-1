@@ -7,11 +7,12 @@ public class StringCalculator {
         }
 
         String[] ints = numbers.split(",");
-        if (ints.length < 2) {
+
+        if (ints.length < 2 || numbers.endsWith(",")) {
             throw new IllegalArgumentException();
         }
 
-        int sum = Arrays.stream(ints).mapToInt(Integer::parseInt).sum();
+        int sum = Arrays.stream(ints).mapToInt(e -> Integer.parseInt(e.trim())).sum();
         return sum;
     }
 }
