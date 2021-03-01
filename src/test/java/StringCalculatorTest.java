@@ -20,12 +20,12 @@ class StringCalculatorTest {
 
     @Test
     void add_throws_number_format_exception_if_string_does_not_contain_valid_numbers() {
-        assertThrows(NumberFormatException.class, () -> { StringCalculator.add("abc,2"); });
+        assertThrows(NumberFormatException.class, () -> StringCalculator.add("abc,2"));
     }
 
     @Test
     void add_throws_illegal_argument_exception_if_string_contains_1_number_only() {
-        assertThrows(IllegalStateException.class, () -> { StringCalculator.add("1"); });
+        assertThrows(IllegalStateException.class, () -> StringCalculator.add("1"));
     }
 
     @Test
